@@ -6,8 +6,11 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import com.example.cs4530app1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +24,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.cameraButton.setOnClickListener { onClickPictureButton() }
+        binding.submitButton.setOnClickListener { onClickSubmitButton() }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        if (binding.cameraImageView.drawable != null) outState.putParcelable(
+            "image", binding.cameraImageView.drawable.toBitmap()
+        )
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val image: Bitmap? = if (Build.VERSION.SDK_INT >= 33) savedInstanceState.getParcelable(
+            "image", Bitmap::class.java
+        )
+        else @Suppress("DEPRECATION") savedInstanceState.getParcelable("image")
+
+        if (image != null) {
+            binding.cameraImageView.setImageBitmap(image)
+            binding.thumbnailTextView.text = getString(R.string.thumbnail)
+        }
     }
 
     private fun onClickPictureButton() {
@@ -28,8 +54,31 @@ class MainActivity : AppCompatActivity() {
         try {
             getPicture.launch(cameraIntent)
         } catch (e: ActivityNotFoundException) {
-            print(e)
+            Log.e("MainActivity", e.toString())
         }
+    }
+
+    private fun onClickSubmitButton() {
+        val firstName = binding.firstNameEditText.text
+        val lastName = binding.lastNameEditText.text
+
+        if (firstName.isNullOrBlank()) {
+            Toast.makeText(
+                this@MainActivity, "Please enter your first name.", Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (lastName.isNullOrBlank()) {
+            Toast.makeText(
+                this@MainActivity, "Please enter your last name.", Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+        loginIntent.putExtra("firstName", firstName.trim())
+        loginIntent.putExtra("lastName", lastName.trim())
+        this.startActivity(loginIntent)
     }
 
     private val getPicture =
@@ -42,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                     @Suppress("DEPRECATION") val image = it.data?.getParcelableExtra<Bitmap>("data")
                     binding.cameraImageView.setImageBitmap(image)
                 }
+                binding.thumbnailTextView.text = getString(R.string.thumbnail)
             }
         }
 }
