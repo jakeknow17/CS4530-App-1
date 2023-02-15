@@ -59,16 +59,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSubmitButton() {
-        val firstName = binding.firstNameEditText.text.toString()
-        val lastName = binding.lastNameEditText.text.toString()
+        val firstName = binding.firstNameEditText.text?.toString()
+        val lastName = binding.lastNameEditText.text?.toString()
 
-        if (firstName.isBlank()) {
+        if (firstName.isNullOrBlank()) {
             Toast.makeText(
                 this, "Please enter your first name.", Toast.LENGTH_SHORT
             ).show()
             return
         }
-        if (lastName.isBlank()) {
+        if (lastName.isNullOrBlank()) {
             Toast.makeText(
                 this, "Please enter your last name.", Toast.LENGTH_SHORT
             ).show()

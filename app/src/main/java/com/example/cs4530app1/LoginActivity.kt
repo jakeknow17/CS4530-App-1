@@ -19,4 +19,20 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginTextView.text = String.format(getString(R.string.login_message), firstName, lastName)
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val text = binding.loginTextView.text
+        if (!text.isNullOrBlank())
+            outState.putString("text", text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val text = savedInstanceState.getString("text")
+        if (!text.isNullOrBlank())
+            binding.loginTextView.text = text
+    }
 }
