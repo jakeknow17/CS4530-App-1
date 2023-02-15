@@ -4,36 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/first_name_edit_text"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="name"
+        android:hint="@string/first_name"
+        android:inputType="text"
+        android:maxWidth="300dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="@string/first_name"
-        android:autofillHints="name"
-        android:inputType="text" />
+        app:layout_constraintWidth_max="488dp" />
 
     <EditText
         android:id="@+id/middle_name_edit_text"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="name"
+        android:hint="@string/middle_name"
+        android:inputType="text"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/first_name_edit_text"
-        android:hint="@string/middle_name"
-        android:autofillHints="name"
-        android:inputType="text" />
+        app:layout_constraintWidth_max="488dp" />
 
     <EditText
         android:id="@+id/last_name_edit_text"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="name"
+        android:hint="@string/last_name"
+        android:inputType="text"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/middle_name_edit_text"
-        android:hint="@string/last_name"
-        android:autofillHints="name"
-        android:inputType="text" />
+        app:layout_constraintWidth_max="488dp" />
+
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/take_a_picture"
+        app:layout_constraintTop_toBottomOf="@id/last_name_edit_text"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

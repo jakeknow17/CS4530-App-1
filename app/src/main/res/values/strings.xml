@@ -3,4 +3,5 @@
     <string name="first_name">First name</string>
     <string name="middle_name">Middle name</string>
     <string name="last_name">Last name</string>
+    <string name="take_a_picture">Take a picture</string>
 </resources>
