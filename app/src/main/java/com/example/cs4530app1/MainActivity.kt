@@ -59,23 +59,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSubmitButton() {
-        val firstName = binding.firstNameEditText.text
-        val lastName = binding.lastNameEditText.text
+        val firstName = binding.firstNameEditText.text.toString()
+        val lastName = binding.lastNameEditText.text.toString()
 
-        if (firstName.isNullOrBlank()) {
+        if (firstName.isBlank()) {
             Toast.makeText(
-                this@MainActivity, "Please enter your first name.", Toast.LENGTH_SHORT
+                this, "Please enter your first name.", Toast.LENGTH_SHORT
             ).show()
             return
         }
-        if (lastName.isNullOrBlank()) {
+        if (lastName.isBlank()) {
             Toast.makeText(
-                this@MainActivity, "Please enter your last name.", Toast.LENGTH_SHORT
+                this, "Please enter your last name.", Toast.LENGTH_SHORT
             ).show()
             return
         }
 
-        val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+        val loginIntent = Intent(this, LoginActivity::class.java)
         loginIntent.putExtra("firstName", firstName.trim())
         loginIntent.putExtra("lastName", lastName.trim())
         this.startActivity(loginIntent)
