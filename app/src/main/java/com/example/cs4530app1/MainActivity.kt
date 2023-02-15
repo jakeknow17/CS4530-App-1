@@ -2,6 +2,8 @@ package com.example.cs4530app1
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,7 +12,7 @@ import com.example.cs4530app1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +32,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val getPicture = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        print(it)
-    }
+    private val getPicture =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                if (Build.VERSION.SDK_INT >= 33) {
+                    val image = it.data?.getParcelableExtra("data", Bitmap::class.java)
+                    binding.cameraImageView.setImageBitmap(image)
+                } else {
+                    @Suppress("DEPRECATION") val image = it.data?.getParcelableExtra<Bitmap>("data")
+                    binding.cameraImageView.setImageBitmap(image)
+                }
+            }
+        }
 }

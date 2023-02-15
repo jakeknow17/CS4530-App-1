@@ -52,7 +52,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/take_a_picture"
-        app:layout_constraintTop_toBottomOf="@id/last_name_edit_text"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/last_name_edit_text" />
+
+    <ImageView
+        android:id="@+id/camera_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/profile_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera_button" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera_image_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
